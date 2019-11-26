@@ -1,21 +1,27 @@
 buildscript {
     repositories {
-    
-        google() 
         jcenter()
- maven { url "https://maven.google.com" }
-    maven { url 'https://dl.bintray.com/kotlin/kotlin-eap' }
+        mavenCentral()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.0.0'
-        classpath 'com.google.gms:google-services:3.0.0'
-
+        classpath 'com.android.tools.build:gradle:+'
+    }
+}
+buildscript {
+    repositories {
+        maven { url 'https://maven.fabric.io/public' }
+        maven { url 'https://maven.google.com' }
+    }
+    dependencies {
+        classpath 'io.fabric.tools:gradle:1.25.4'
+        classpath 'com.google.gms:google-services:+'
     }
 }
 repositories {
-     maven { url "https://maven.google.com" }
-    maven { url 'https://dl.bintray.com/kotlin/kotlin-eap' }
-    
+    mavenCentral()
+    maven {
+        url "https://maven.google.com"
+    }
 }
 
 dependencies {
@@ -26,5 +32,7 @@ dependencies {
     }
 }
 
-apply plugin: 'com.google.gms.google-services'
-apply plugin: 'io.fabric'
+cdvPluginPostBuildExtras.add({
+    apply plugin: 'com.google.gms.google-services'
+    apply plugin: 'io.fabric'
+})
